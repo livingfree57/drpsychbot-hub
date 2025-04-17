@@ -1,11 +1,16 @@
-entrypoint = "drrolandbot_voice.py"
+run =  ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
+entrypoint = "main.py"
+modules = ["python-3.11"]
 
-[interpreter]
-command = ["python3", "-u", "drrolandbot_voice.py"]
+hidden = [".pythonlibs"]
+
+[nix]
+channel = "stable-24_05"
 
 [deployment]
-deploymentTarget = "replit"
+run =  ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
+deploymentTarget = "cloudrun"
 
-
-
-
+[[ports]]
+localPort = 5000
+externalPort = 80
