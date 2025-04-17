@@ -1,6 +1,5 @@
-entrypoint = "drrolandbot_voice.py"
-run = "python3 drrolandbot_voice.py"
-language = "python3"
+run =  ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
+entrypoint = "main.py"
 modules = ["python-3.11"]
 
 hidden = [".pythonlibs"]
@@ -9,11 +8,9 @@ hidden = [".pythonlibs"]
 channel = "stable-24_05"
 
 [deployment]
-run = ["gunicorn", "--bind", "0.0.0.0:5000", "drrolandbot_voice.py:app"]
+run =  ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
 deploymentTarget = "cloudrun"
 
 [[ports]]
 localPort = 5000
 externalPort = 80
-exposeLocalhost = true
-
