@@ -1,5 +1,6 @@
-{pkgs}: {
+{ pkgs }: {
   deps = [
-    pkgs.unzip
+    pkgs.python311Full
+    pkgs.pip
   ];
 }
