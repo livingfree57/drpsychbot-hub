@@ -1,16 +1,4 @@
-run =  ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
-entrypoint = "main.py"
-modules = ["python-3.11"]
+echo -e '[interpreter]\ncommand = ["python3", "-u", "drrolandbot_voice.py"]\n\n[deployment]\ndeploymentTarget = "replit"' > .replit
 
-hidden = [".pythonlibs"]
 
-[nix]
-channel = "stable-24_05"
 
-[deployment]
-run =  ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
-deploymentTarget = "cloudrun"
-
-[[ports]]
-localPort = 5000
-externalPort = 80
