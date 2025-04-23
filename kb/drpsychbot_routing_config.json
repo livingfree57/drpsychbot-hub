@@ -1,0 +1,16 @@
+[
+  {
+    "category": "Empathy & Parenting Support",
+    "bot_name": "Dr. Parenting Bot",
+    "description": "Helps build essential parenting skills with guidance and support.",
+    "kb_csv": "parenting_csv.csv",
+    "kb_json": "parenting_json.json"
+  },
+  {
+    "category": "Trauma Support",
+    "bot_name": "Dr. Silent Trauma Bot",
+    "description": "Helps users identify and heal from silent, unspoken trauma.",
+    "kb_csv": "silent_trauma_csv.csv",
+    "kb_json": "silent_trauma_json.json"
+  }
+]

@@ -9,7 +9,7 @@ python = ">=3.11.0,<3.12"
 flask = "^3.0.0"
 gunicorn = "^21.2.0"
 elevenlabs = "^1.56.1"
-openai = "^1.74.0"
+openai = "0.28"
 python-dotenv = "^1.1.0"
 
 [tool.pyright]

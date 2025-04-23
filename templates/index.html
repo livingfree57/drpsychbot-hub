@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DrRolandBot: Hybrid </title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    #chat-box {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+    }
+    #user-input, #botSelect {
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px;
+      font-size: 16px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    #status {
+      font-style: italic;
+      color: gray;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h2>DrPsychBot-Hub Text + Voice Chat</h2>
+
+  <label for="botSelect">Choose a bot/topic:</label>
+  <select id="botSelect"></select>
+
+  <div id="chat-box">
+    <p><strong>DrPsychBot:</strong> Hello, how can I support you today?</p>
+  </div>
+
+  <input id="user-input" type="text" placeholder="Type or speak...">
+  <button onclick="sendMessage(true)">Send</button>
+  <button onclick="startListening()">🎙 Speak</button>
+  <div id="status"></div>
+
+  <script>
+    let recognition;
+
+    // Populate bot dropdown
+    window.addEventListener("DOMContentLoaded", () => {
+      fetch("/list-bots")
+        .then(res => res.json())
+        .then(bots => {
+          const dropdown = document.getElementById("botSelect");
+          bots.forEach(bot => {
+            const option = document.createElement("option");
+            option.value = bot.bot;
+            option.textContent = `${bot.bot} (${bot.category})`;
+            dropdown.appendChild(option);
+          });
+        });
+    });
+
+    function typeUserMessage(text, callback) {
+      if (!text || text.trim() === "") return;
+      const chatBox = document.getElementById("chat-box");
+      const userMsg = document.createElement("p");
+      const userSpan = document.createElement("span");
+      userMsg.innerHTML = `<strong>You (spoken):</strong> `;
+      userSpan.id = 'user-typing';
+      userMsg.appendChild(userSpan);
+      chatBox.appendChild(userMsg);
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < text.length) {
+          userSpan.textContent += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(interval);
+          if (callback) callback();
+        }
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 30);
+    }
+
+    function typeReply(text, callback) {
+      if (!text || text.trim() === "") return;
+      const chatBox = document.getElementById("chat-box");
+      const replyParagraph = document.createElement("p");
+      const replySpan = document.createElement("span");
+      replyParagraph.innerHTML = `<strong>DrRolandBot:</strong> `;
+      replySpan.id = 'typing';
+      replyParagraph.appendChild(replySpan);
+      chatBox.appendChild(replyParagraph);
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < text.length) {
+          replySpan.textContent += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(interval);
+          chatBox.scrollTop = chatBox.scrollHeight;
+          if (callback) callback();
+        }
+      }, 30);
+    }
+
+    function sendMessage(fromTyped = false) {
+      const input = document.getElementById("user-input").value.trim();
+      const bot = document.getElementById("botSelect").value;
+      if (!input) return;
+      document.getElementById("status").innerText = "Processing...";
+
+      if (fromTyped) {
+        typeUserTyped(input);
+      }
+
+      fetch("/voice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input, bot })
+      })
+        .then(res => res.json())
+        .then(data => {
+          const reply = data.text;
+          const audioUrl = data.audio_url;
+          if (reply) {
+            const audio = new Audio(audioUrl);
+            audio.play();
+            typeReply(reply);
+            audio.onended = () => {
+              startListening();
+            };
+          }
+        })
+        .catch(err => {
+          console.error("Error:", err);
+          typeReply("Sorry, something went wrong.", () => startListening());
+        });
+
+      document.getElementById("user-input").value = "";
+    }
+
+    function typeUserTyped(text) {
+      const chatBox = document.getElementById("chat-box");
+      const userTyped = document.createElement("p");
+      userTyped.innerHTML = `<strong>You:</strong> ${text}`;
+      chatBox.appendChild(userTyped);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function startListening() {
+      if (recognition) {
+        recognition.stop();
+      }
+      recognition = new webkitSpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      document.getElementById("status").innerText = "🎤 Listening...";
+
+      recognition.onresult = function(event) {
+        const spokenText = event.results[0][0].transcript;
+        if (spokenText.trim()) {
+          typeUserMessage(spokenText, () => {
+            document.getElementById("user-input").value = spokenText;
+            sendMessage();
+          });
+        }
+      };
+
+      recognition.onerror = function(event) {
+        console.error("Speech recognition error:", event.error);
+        document.getElementById("status").innerText = "🎤 Error. Tap mic to retry.";
+      };
+
+      recognition.onend = function() {
+        document.getElementById("status").innerText = "";
+      };
+
+      recognition.start();
+    }
+  </script>
+</body>
+</html>

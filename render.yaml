@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: drpsychbot-hub
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    plan: free
+    envVars:
+      - key: OPENAI_API_KEY
+        value: your-real-openai-api-key-here

@@ -1,0 +1,373 @@
+[
+  {
+    "category": "Founder Insight & Philosophy",
+    "bot_name": "Dr. Roland Kim's Private Bot – DrrolandBot",
+    "description": "Specialized support and guidance from Dr. Roland Kim's Private  – Drroland.",
+    "kb_csv": "dr_roland_kim's_private_bot_drrolandbot_csv.csv",
+    "kb_json": "dr_roland_kim's_private_bot_drrolandbot_json.json"
+  },
+  {
+    "category": "Empathy Skills",
+    "bot_name": "Dr. Empathy Training Bot",
+    "description": "Specialized support and guidance from Dr. Empathy Training .",
+    "kb_csv": "dr_empathy_training_bot_csv.csv",
+    "kb_json": "dr_empathy_training_bot_json.json"
+  },
+  {
+    "category": "Psychoanalytic Training",
+    "bot_name": "Dr. Object Relations Training Bot",
+    "description": "Specialized support and guidance from Dr. Object Relations Training .",
+    "kb_csv": "dr_object_relations_training_bot_csv.csv",
+    "kb_json": "dr_object_relations_training_bot_json.json"
+  },
+  {
+    "category": "Psychoanalytic Training",
+    "bot_name": "Dr. Sigmund Freud Bot",
+    "description": "Specialized support and guidance from Dr. Sigmund Freud .",
+    "kb_csv": "dr_sigmund_freud_bot_csv.csv",
+    "kb_json": "dr_sigmund_freud_bot_json.json"
+  },
+  {
+    "category": "Psychoanalytic Training",
+    "bot_name": "Dr. Carl Jung Bot",
+    "description": "Specialized support and guidance from Dr. Carl Jung .",
+    "kb_csv": "dr_carl_jung_bot_csv.csv",
+    "kb_json": "dr_carl_jung_bot_json.json"
+  },
+  {
+    "category": "Parenting Support",
+    "bot_name": "Dr. Parenting Bot",
+    "description": "Specialized support and guidance from Dr. Parenting .",
+    "kb_csv": "dr_parenting_bot_csv.csv",
+    "kb_json": "dr_parenting_bot_json.json"
+  },
+  {
+    "category": "Parenting Support",
+    "bot_name": "Dr. Mother's Empathic Role Bot",
+    "description": "Specialized support and guidance from Dr. Mother's Empathic Role .",
+    "kb_csv": "dr_mother's_empathic_role_bot_csv.csv",
+    "kb_json": "dr_mother's_empathic_role_bot_json.json"
+  },
+  {
+    "category": "Parenting Support",
+    "bot_name": "Dr. Fathers Support Bot",
+    "description": "Specialized support and guidance from Dr. Fathers Support .",
+    "kb_csv": "dr_fathers_support_bot_csv.csv",
+    "kb_json": "dr_fathers_support_bot_json.json"
+  },
+  {
+    "category": "Parenting Resolution",
+    "bot_name": "Dr. Parental Resolution with Children Bot (for Parents)",
+    "description": "Specialized support and guidance from Dr. Parental Resolution with Children  (for Parents).",
+    "kb_csv": "dr_parental_resolution_with_children_bot_for_parents_csv.csv",
+    "kb_json": "dr_parental_resolution_with_children_bot_for_parents_json.json"
+  },
+  {
+    "category": "Parenting Resolution",
+    "bot_name": "Dr. Parental Resolution Bot (for Children)",
+    "description": "Specialized support and guidance from Dr. Parental Resolution  (for Children).",
+    "kb_csv": "dr_parental_resolution_bot_for_children_csv.csv",
+    "kb_json": "dr_parental_resolution_bot_for_children_json.json"
+  },
+  {
+    "category": "Developmental Education",
+    "bot_name": "Dr. Child / Human Development Education Bot",
+    "description": "Specialized support and guidance from Dr. Child / Human Development Education .",
+    "kb_csv": "dr_child_human_development_education_bot_csv.csv",
+    "kb_json": "dr_child_human_development_education_bot_json.json"
+  },
+  {
+    "category": "Teen Support",
+    "bot_name": "Dr. Teenager Bot",
+    "description": "Specialized support and guidance from Dr. Teenager .",
+    "kb_csv": "dr_teenager_bot_csv.csv",
+    "kb_json": "dr_teenager_bot_json.json"
+  },
+  {
+    "category": "Behavioral Support",
+    "bot_name": "Dr. Acting Out Behavior Bot",
+    "description": "Specialized support and guidance from Dr. Acting Out Behavior .",
+    "kb_csv": "dr_acting_out_behavior_bot_csv.csv",
+    "kb_json": "dr_acting_out_behavior_bot_json.json"
+  },
+  {
+    "category": "Family Dynamics",
+    "bot_name": "Dr. Sibling Rivalry Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Sibling Rivalry Recovery .",
+    "kb_csv": "dr_sibling_rivalry_recovery_bot_csv.csv",
+    "kb_json": "dr_sibling_rivalry_recovery_bot_json.json"
+  },
+  {
+    "category": "Trauma Recovery",
+    "bot_name": "Dr. Silent Trauma Information Bot",
+    "description": "Specialized support and guidance from Dr. Silent Trauma Information .",
+    "kb_csv": "dr_silent_trauma_information_bot_csv.csv",
+    "kb_json": "dr_silent_trauma_information_bot_json.json"
+  },
+  {
+    "category": "Trauma Recovery",
+    "bot_name": "Dr. PTSD Bot",
+    "description": "Specialized support and guidance from Dr. PTSD .",
+    "kb_csv": "dr_ptsd_bot_csv.csv",
+    "kb_json": "dr_ptsd_bot_json.json"
+  },
+  {
+    "category": "Crisis Support",
+    "bot_name": "Dr. Suicide Prevention Bot",
+    "description": "Specialized support and guidance from Dr. Suicide Prevention .",
+    "kb_csv": "dr_suicide_prevention_bot_csv.csv",
+    "kb_json": "dr_suicide_prevention_bot_json.json"
+  },
+  {
+    "category": "Abuse Recovery",
+    "bot_name": "Dr. Emotional Abuse Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Emotional Abuse Recovery .",
+    "kb_csv": "dr_emotional_abuse_recovery_bot_csv.csv",
+    "kb_json": "dr_emotional_abuse_recovery_bot_json.json"
+  },
+  {
+    "category": "Abuse Recovery",
+    "bot_name": "Dr. Sexual Abuse Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Sexual Abuse Recovery .",
+    "kb_csv": "dr_sexual_abuse_recovery_bot_csv.csv",
+    "kb_json": "dr_sexual_abuse_recovery_bot_json.json"
+  },
+  {
+    "category": "Abuse Recovery",
+    "bot_name": "Dr. Physical Abuse Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Physical Abuse Recovery .",
+    "kb_csv": "dr_physical_abuse_recovery_bot_csv.csv",
+    "kb_json": "dr_physical_abuse_recovery_bot_json.json"
+  },
+  {
+    "category": "Attachment Recovery",
+    "bot_name": "Dr. Emotional Abandonment Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Emotional Abandonment Recovery .",
+    "kb_csv": "dr_emotional_abandonment_recovery_bot_csv.csv",
+    "kb_json": "dr_emotional_abandonment_recovery_bot_json.json"
+  },
+  {
+    "category": "Attachment Recovery",
+    "bot_name": "Dr. Physical Abandonment Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Physical Abandonment Recovery .",
+    "kb_csv": "dr_physical_abandonment_recovery_bot_csv.csv",
+    "kb_json": "dr_physical_abandonment_recovery_bot_json.json"
+  },
+  {
+    "category": "Attachment Recovery",
+    "bot_name": "Dr. Emotional Neglect Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Emotional Neglect Recovery .",
+    "kb_csv": "dr_emotional_neglect_recovery_bot_csv.csv",
+    "kb_json": "dr_emotional_neglect_recovery_bot_json.json"
+  },
+  {
+    "category": "Attachment Recovery",
+    "bot_name": "Dr. Physical Neglect Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Physical Neglect Recovery .",
+    "kb_csv": "dr_physical_neglect_recovery_bot_csv.csv",
+    "kb_json": "dr_physical_neglect_recovery_bot_json.json"
+  },
+  {
+    "category": "Addiction Recovery",
+    "bot_name": "Dr. Game/Internet/SNS Addiction Bot",
+    "description": "Specialized support and guidance from Dr. Game/Internet/SNS Addiction .",
+    "kb_csv": "dr_game_internet_sns_addiction_bot_csv.csv",
+    "kb_json": "dr_game_internet_sns_addiction_bot_json.json"
+  },
+  {
+    "category": "Addiction Recovery",
+    "bot_name": "Dr. Porn Addiction Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Porn Addiction Recovery .",
+    "kb_csv": "dr_porn_addiction_recovery_bot_csv.csv",
+    "kb_json": "dr_porn_addiction_recovery_bot_json.json"
+  },
+  {
+    "category": "Addiction Recovery",
+    "bot_name": "Dr. Sex/Love Addiction Bot",
+    "description": "Specialized support and guidance from Dr. Sex/Love Addiction .",
+    "kb_csv": "dr_sex_love_addiction_bot_csv.csv",
+    "kb_json": "dr_sex_love_addiction_bot_json.json"
+  },
+  {
+    "category": "Addiction Recovery",
+    "bot_name": "Dr. Substance Addiction Bot",
+    "description": "Specialized support and guidance from Dr. Substance Addiction .",
+    "kb_csv": "dr_substance_addiction_bot_csv.csv",
+    "kb_json": "dr_substance_addiction_bot_json.json"
+  },
+  {
+    "category": "Mental Health Recovery",
+    "bot_name": "Dr. Narcissistic Tendency Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Narcissistic Tendency Recovery .",
+    "kb_csv": "dr_narcissistic_tendency_recovery_bot_csv.csv",
+    "kb_json": "dr_narcissistic_tendency_recovery_bot_json.json"
+  },
+  {
+    "category": "Mental Health Recovery",
+    "bot_name": "Dr. OCD Recovery Bot",
+    "description": "Specialized support and guidance from Dr. OCD Recovery .",
+    "kb_csv": "dr_ocd_recovery_bot_csv.csv",
+    "kb_json": "dr_ocd_recovery_bot_json.json"
+  },
+  {
+    "category": "Mental Health Recovery",
+    "bot_name": "Dr. Attention Deficit (ADHD) Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Attention Deficit (ADHD) Recovery .",
+    "kb_csv": "dr_attention_deficit_adhd_recovery_bot_csv.csv",
+    "kb_json": "dr_attention_deficit_adhd_recovery_bot_json.json"
+  },
+  {
+    "category": "Mental Health Recovery",
+    "bot_name": "Dr. Bully Recovery/Prevention Bot",
+    "description": "Specialized support and guidance from Dr. Bully Recovery/Prevention .",
+    "kb_csv": "dr_bully_recovery_prevention_bot_csv.csv",
+    "kb_json": "dr_bully_recovery_prevention_bot_json.json"
+  },
+  {
+    "category": "Mental Health Recovery",
+    "bot_name": "Dr. Anxiety and Panic Bot",
+    "description": "Specialized support and guidance from Dr. Anxiety and Panic .",
+    "kb_csv": "dr_anxiety_and_panic_bot_csv.csv",
+    "kb_json": "dr_anxiety_and_panic_bot_json.json"
+  },
+  {
+    "category": "Mental Health Recovery",
+    "bot_name": "Dr. Depression Support Bot",
+    "description": "Specialized support and guidance from Dr. Depression Support .",
+    "kb_csv": "dr_depression_support_bot_csv.csv",
+    "kb_json": "dr_depression_support_bot_json.json"
+  },
+  {
+    "category": "Mental Health Recovery",
+    "bot_name": "Dr. Psychosomatic Support Bot",
+    "description": "Specialized support and guidance from Dr. Psychosomatic Support .",
+    "kb_csv": "dr_psychosomatic_support_bot_csv.csv",
+    "kb_json": "dr_psychosomatic_support_bot_json.json"
+  },
+  {
+    "category": "Grief and Loss",
+    "bot_name": "Dr. Grief Psychology Bot",
+    "description": "Specialized support and guidance from Dr. Grief Psychology .",
+    "kb_csv": "dr_grief_psychology_bot_csv.csv",
+    "kb_json": "dr_grief_psychology_bot_json.json"
+  },
+  {
+    "category": "Maternal Health",
+    "bot_name": "Dr. Postpartum Depression Bot",
+    "description": "Specialized support and guidance from Dr. Postpartum Depression .",
+    "kb_csv": "dr_postpartum_depression_bot_csv.csv",
+    "kb_json": "dr_postpartum_depression_bot_json.json"
+  },
+  {
+    "category": "Emotional Skills",
+    "bot_name": "Dr. Communication Skill Building Bot",
+    "description": "Specialized support and guidance from Dr. Communication Skill Building .",
+    "kb_csv": "dr_communication_skill_building_bot_csv.csv",
+    "kb_json": "dr_communication_skill_building_bot_json.json"
+  },
+  {
+    "category": "Emotional Skills",
+    "bot_name": "Dr. Motivation Building Bot",
+    "description": "Specialized support and guidance from Dr. Motivation Building .",
+    "kb_csv": "dr_motivation_building_bot_csv.csv",
+    "kb_json": "dr_motivation_building_bot_json.json"
+  },
+  {
+    "category": "Emotional Skills",
+    "bot_name": "Dr. Character Building Bot",
+    "description": "Specialized support and guidance from Dr. Character Building .",
+    "kb_csv": "dr_character_building_bot_csv.csv",
+    "kb_json": "dr_character_building_bot_json.json"
+  },
+  {
+    "category": "Emotional Skills",
+    "bot_name": "Dr. Leadership Skill Building Bot",
+    "description": "Specialized support and guidance from Dr. Leadership Skill Building .",
+    "kb_csv": "dr_leadership_skill_building_bot_csv.csv",
+    "kb_json": "dr_leadership_skill_building_bot_json.json"
+  },
+  {
+    "category": "Emotional Skills",
+    "bot_name": "Dr. Teacher Leadership Bot",
+    "description": "Specialized support and guidance from Dr. Teacher Leadership .",
+    "kb_csv": "dr_teacher_leadership_bot_csv.csv",
+    "kb_json": "dr_teacher_leadership_bot_json.json"
+  },
+  {
+    "category": "Emotional Skills",
+    "bot_name": "Dr. Assertiveness Skills Bot",
+    "description": "Specialized support and guidance from Dr. Assertiveness Skills .",
+    "kb_csv": "dr_assertiveness_skills_bot_csv.csv",
+    "kb_json": "dr_assertiveness_skills_bot_json.json"
+  },
+  {
+    "category": "Emotional Skills",
+    "bot_name": "Dr. Social Skill Building Bot",
+    "description": "Specialized support and guidance from Dr. Social Skill Building .",
+    "kb_csv": "dr_social_skill_building_bot_csv.csv",
+    "kb_json": "dr_social_skill_building_bot_json.json"
+  },
+  {
+    "category": "Emotional Skills",
+    "bot_name": "Dr. Ego Building Bot",
+    "description": "Specialized support and guidance from Dr. Ego Building .",
+    "kb_csv": "dr_ego_building_bot_csv.csv",
+    "kb_json": "dr_ego_building_bot_json.json"
+  },
+  {
+    "category": "Emotional Skills",
+    "bot_name": "Dr. Emotional Independence Building Bot",
+    "description": "Specialized support and guidance from Dr. Emotional Independence Building .",
+    "kb_csv": "dr_emotional_independence_building_bot_csv.csv",
+    "kb_json": "dr_emotional_independence_building_bot_json.json"
+  },
+  {
+    "category": "Emotional Skills",
+    "bot_name": "Dr. Anger Management Bot",
+    "description": "Specialized support and guidance from Dr. Anger Management .",
+    "kb_csv": "dr_anger_management_bot_csv.csv",
+    "kb_json": "dr_anger_management_bot_json.json"
+  },
+  {
+    "category": "Relationship Support",
+    "bot_name": "Dr. Couple Relationship Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Couple Relationship Recovery .",
+    "kb_csv": "dr_couple_relationship_recovery_bot_csv.csv",
+    "kb_json": "dr_couple_relationship_recovery_bot_json.json"
+  },
+  {
+    "category": "Therapeutic Techniques",
+    "bot_name": "Dr. CBT Training Bot",
+    "description": "Specialized support and guidance from Dr. CBT Training .",
+    "kb_csv": "dr_cbt_training_bot_csv.csv",
+    "kb_json": "dr_cbt_training_bot_json.json"
+  },
+  {
+    "category": "Societal Insight",
+    "bot_name": "Dr. Socio-Political Insight Bot",
+    "description": "Specialized support and guidance from Dr. Socio-Political Insight .",
+    "kb_csv": "dr_sociopolitical_insight_bot_csv.csv",
+    "kb_json": "dr_sociopolitical_insight_bot_json.json"
+  },
+  {
+    "category": "Societal Insight",
+    "bot_name": "Dr. Mature Socio-cultural Blueprint Bot",
+    "description": "Specialized support and guidance from Dr. Mature Socio-cultural Blueprint .",
+    "kb_csv": "dr_mature_sociocultural_blueprint_bot_csv.csv",
+    "kb_json": "dr_mature_sociocultural_blueprint_bot_json.json"
+  },
+  {
+    "category": "Crisis Support",
+    "bot_name": "Dr. Crime Prevention Bot",
+    "description": "Specialized support and guidance from Dr. Crime Prevention .",
+    "kb_csv": "dr_crime_prevention_bot_csv.csv",
+    "kb_json": "dr_crime_prevention_bot_json.json"
+  },
+  {
+    "category": "Isolation Recovery",
+    "bot_name": "Dr. Social Isolation (Hikikomori) Recovery Bot",
+    "description": "Specialized support and guidance from Dr. Social Isolation (Hikikomori) Recovery .",
+    "kb_csv": "dr_social_isolation_hikikomori_recovery_bot_csv.csv",
+    "kb_json": "dr_social_isolation_hikikomori_recovery_bot_json.json"
+  }
+]

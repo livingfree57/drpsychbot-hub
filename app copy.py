@@ -132,31 +132,18 @@ def voice_reply():
     else:
         final_reply = gpt_text
 
+    audio_filename = f"response_{uuid.uuid4().hex}.mp3"
+    audio_path     = pathlib.Path("static") / audio_filename
 
-    """
-    try:
-        import uuid
-        audio_filename = f"response_{uuid.uuid4().hex}.mp3"
-        audio_path     = pathlib.Path("static") / audio_filename
+    audio = client_11.text_to_speech.convert(
+        text          = final_reply,
+        voice_id      = voice_id,
+        model_id      = "eleven_multilingual_v2",
+        output_format = "mp3_44100_128"
+    )
+    save(audio, str(audio_path))
 
-        audio = client_11.text_to_speech.convert(
-            text          = final_reply,
-            voice_id      = voice_id,
-            model_id      = "eleven_multilingual_v2",
-            output_format = "mp3_44100_128"
-        )
-        save(audio, str(audio_path))
-        return jsonify({"text": final_reply, "audio_url": f"/static/{audio_filename}"})
-            
-        except Exception as e:
-        print("ElevenLabs error:", e)
-    """
-        
-    return jsonify({
-        "text": final_reply,
-        "audio_url": None  # or "" if preferred
-    })
-
+    return jsonify({"text": final_reply, "audio_url": f"/static/{audio_filename}"})
 
 if __name__ == "__main__":
     os.makedirs(KB_DIR, exist_ok=True)

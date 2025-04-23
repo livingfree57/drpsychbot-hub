@@ -13,9 +13,11 @@ function sendMessage() {
     .then(data => {
       const reply = data.response;
       lastBotResponse = reply;
-      chatBox.innerHTML += `<p><strong>DrRolandBot:</strong> ${reply}</p>`;
+      chatBox.innerHTML += `<p><strong>DrPsychBot:</strong> ${reply}</p>`;
       chatBox.scrollTop = chatBox.scrollHeight;
     });
+  fetch("/list-bots")
+
 
   input.value = "";
 }
