@@ -12,5 +12,12 @@
     "description": "Helps users identify and heal from silent, unspoken trauma.",
     "kb_csv": "silent_trauma_csv.csv",
     "kb_json": "silent_trauma_json.json"
+  },
+  {
+    "category": "Empathic Reflection",
+    "bot_name": "Dr. Empathic Counseling Bot",
+    "description": "Provides empathic responses to emotional pain, grief, uncertainty, and more.",
+    "kb_csv": null,
+    "kb_json": "empathic_counseling_json.json"
   }
 ]

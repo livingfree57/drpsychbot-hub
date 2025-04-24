@@ -6,10 +6,17 @@
     "kb_csv": "dr_roland_kim's_private_bot_drrolandbot_csv.csv",
     "kb_json": "dr_roland_kim's_private_bot_drrolandbot_json.json"
   },
+  { 
+    "category": "Empathic Reflection",
+    "bot_name": "Dr. Empathic Counseling Bot",
+    "description": "Specialized support and guidance from Dr. Empathy Training .",
+    "kb_csv": null,
+    "kb_json": "empathic_counseling_json.json"
+  },
   {
     "category": "Empathy Skills",
-    "bot_name": "Dr. Empathy Training Bot",
-    "description": "Specialized support and guidance from Dr. Empathy Training .",
+    "bot_name": "Dr. Empathy Training Bot", 
+    "description": "Specialized empathy training from Dr. Empathy Training .",
     "kb_csv": "dr_empathy_training_bot_csv.csv",
     "kb_json": "dr_empathy_training_bot_json.json"
   },
