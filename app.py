@@ -1,3 +1,5 @@
+
+
 #!/usr/bin/env python3
 import os
 import csv
@@ -9,6 +11,16 @@ from flask import Flask, request, jsonify, render_template
 import openai
 from elevenlabs import save
 from elevenlabs.client import ElevenLabs
+
+from dotenv import load_dotenv
+
+load_dotenv()  
+
+
+
+kb_path = "kb/"
+target_names = ["DrRolandBot", "DrParentingBot", "DrTeenagerBot"]
+replacement = "DrPsychBot"
 
 app = Flask(__name__)
 
@@ -52,113 +64,72 @@ def list_bots():
 @app.route("/voice", methods=["POST"])
 def voice_reply():
     data = request.json
-    user_input = data.get("message", "").strip().lower()
-    bot_name = data.get("bot")
+    user_input = data.get("message", "")
+    selected_bot = data.get("bot", "")
 
-    kb_files = get_bot_kb(bot_name)
-    if not kb_files:
-        return jsonify({"text": "I couldn't find that topic. Please try another.", "audio_url": ""})
+    # Load knowledge base (as you're already doing)
+    kb_files = get_bot_kb(selected_bot)
+    final_reply = None
 
-    try:
-        with open(kb_files["json"], "r", encoding="utf-8") as f:
-            json_data = json.load(f)
-    except:
-        json_data = []
-
-    json_triggers = [entry["question"].strip().lower() for entry in json_data]
-
-    for entry in json_data:
-        q = entry["question"]
-        reflection = f"It sounds like you're wondering, \"{q}\" — and that’s a really important question. "
-        if not entry["answer"].startswith("It sounds like"):
-            entry["answer"] = reflection + entry["answer"]
-
-    # Load CSV if exists
-    csv_data = []
-    try:
-        with open(kb_files["csv"], "r", encoding="utf-8") as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                csv_data.append({
-                    "question": row["question"].strip().lower(),
-                    "answer": row["answer"].strip()
-                })
-    except:
-        pass
-
-
-    json_hit = None
-    csv_hit  = None
-
-    closest = difflib.get_close_matches(user_input, json_triggers, n=1, cutoff=0.7)
-    print("🔍 Closest trigger:", closest)
-    if closest:
-        trg = closest[0]
-        for entry in json_data:
-            if entry["question"].strip().lower() == trg:
-                json_hit = entry["answer"]
-                for follow in entry.get("follow_up", []):
-                    if follow["keyword"].strip().lower() in user_input:
-                        json_hit += " " + follow["response"]
-                break
-
-    if not json_hit:
-        for item in csv_data:
-            q = item["question"]
-            if q in user_input or user_input in q:
-                csv_hit = item["answer"]
-                break
-
-    gpt_text = ""
-    if not json_hit and not csv_hit:
+    if kb_files:
         try:
-            resp = openai.ChatCompletion.create(
+            with open(kb_files["json"], "r", encoding="utf-8") as f:
+                bot_kb = json.load(f)
+            for item in bot_kb:
+                if user_input.lower() in item["question"].lower():
+                    final_reply = item["answer"]
+                    break
+        except Exception as e:
+            print("KB load error:", e)
+
+    # GPT fallback
+    if not final_reply:
+        try:
+            import openai
+            openai.api_key = os.getenv("OPENAI_API_KEY")
+            gpt_response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role":"system","content":"You’re a counselor with expertise in unspoken and unaddressed silent trauma. Reply in 2–3 brief paragraphs, plain language."},
-                    {"role":"user","content":user_input}
-                ],
-                max_tokens=200
+                    {"role": "system", "content": "You are a compassionate AI therapist."},
+                    {"role": "user", "content": user_input}
+                ]
             )
-            gpt_text = resp.choices[0].message.content.strip()
+            final_reply = gpt_response["choices"][0]["message"]["content"].strip()
         except Exception as e:
-            print("❌ GPT error:", e)
-            gpt_text = "I'm still learning. Would you like to try asking in a different way?"
+            print("GPT fallback error:", e)
+            final_reply = "I'm here to support you, but I couldn’t reach my knowledge source right now."
 
-    if json_hit:
-        final_reply = f"{json_hit}\n\n{gpt_text}".strip()
-    elif csv_hit:
-        final_reply = f"{csv_hit}\n\n{gpt_text}".strip()
-    else:
-        final_reply = gpt_text
-
-
-    """
+    # ElevenLabs voice (wrapped in try/except)
     try:
         import uuid
+        from elevenlabs import save
+        from elevenlabs.client import ElevenLabs
+
+        voice_id = os.getenv("VOICE_ID", "your_default_voice_id")  # optional
+        client_11 = ElevenLabs(api_key=os.getenv("ELEVEN_API_KEY"))
+
         audio_filename = f"response_{uuid.uuid4().hex}.mp3"
-        audio_path     = pathlib.Path("static") / audio_filename
+        audio_path = pathlib.Path("static") / audio_filename
 
         audio = client_11.text_to_speech.convert(
-            text          = final_reply,
-            voice_id      = voice_id,
-            model_id      = "eleven_multilingual_v2",
-            output_format = "mp3_44100_128"
+            text=final_reply,
+            voice_id=voice_id,
+            model_id="eleven_multilingual_v2",
+            output_format="mp3_44100_128"
         )
         save(audio, str(audio_path))
-        return jsonify({"text": final_reply, "audio_url": f"/static/{audio_filename}"})
-            
-        except Exception as e:
-        print("ElevenLabs error:", e)
-    """
-        
-    return jsonify({
-        "text": final_reply,
-        "audio_url": None  # or "" if preferred
-    })
 
+        return jsonify({"text": final_reply, "audio_url": f"/static/{audio_filename}"})
+
+    except Exception as e:
+        print("ElevenLabs voice error:", e)
+        return jsonify({"text": final_reply})
 
 if __name__ == "__main__":
-    os.makedirs(KB_DIR, exist_ok=True)
-    app.run(debug=True, port=5001)
+    import os
+    if not os.environ.get("RENDER"):
+        from pathlib import Path
+        KB_DIR.mkdir(parents=True, exist_ok=True)
+        app.run(debug=True, port=5001)
+
 
