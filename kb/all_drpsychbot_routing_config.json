@@ -98,7 +98,7 @@
     "kb_json": "dr_sibling_rivalry_recovery_bot_json.json"
   },
   {
-    "category": "Trauma Recovery",
+    "category": "Silent Trauma",
     "bot_name": "Dr. Silent Trauma Information Bot",
     "description": "Specialized support and guidance from Dr. Silent Trauma Information .",
     "kb_csv": "dr_silent_trauma_information_bot_csv.csv",
