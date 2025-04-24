@@ -15,8 +15,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>DrPsychBot: Hybrid </title>
+  <meta charset="UTF-8" />
+  <title>AskDrPsychBot - Emotional Healing AI</title>
   <style>
     body {
       font-family: sans-serif;
@@ -50,53 +50,56 @@
   </style>
 </head>
 <body>
-  <h2>DrPsychBot-Hub Text + Voice Chat</h2>
+  <div id="chatbox-wrapper" style="max-width: 600px; margin: auto;">
+    <h2 style="text-align: center;">👋 Welcome to AskDrPsychBot</h2>
+    <p style="font-size: 0.85em; color: #666; text-align: center; margin-top: -10px; margin-bottom: 20px;">
+      🔒 Your conversation stays private — nothing is saved unless you choose to.<br>
+      ⏳ If this page takes a few seconds to load, it's just waking up from sleep mode.
+    </p>
 
-  <label for="botSelect">Choose a bot/topic:</label>
-  <select id="botSelect"></select>
-  <div style="
-  max-width: 600px;
-  margin: 0 auto 16px;
-  padding: 20px;
-  background-color: #f0f4f8;
-  border-radius: 10px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.05);
-  font-size: 1em;
-  color: #333;
-  line-height: 1.5;
-  text-align: left;
-">  
+    <label for="botSelect">Choose a bot/topic:</label>
+    <select id="botSelect"></select>
 
-  <p style="margin-bottom: 12px;">
-    🔐 <strong>Your Privacy Matters</strong><br />
-    What you share here is <em>not monitored or stored</em> by AskDrPsychBot.<br />
-    Everything you say stays in your browser — unless <em>you</em> choose to save it when you're ready.
-  </p>
-  <button
-    onclick="downloadAsText()"
-    style="
-      padding: 10px 16px;
-      background-color: #2b6cb0;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    "
-  >
-    💾 Save This Session
-  </button>
-</div>
+    <div style="
+      max-width: 600px;
+      margin: 16px 0;
+      padding: 20px;
+      background-color: #f0f4f8;
+      border-radius: 10px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.05);
+      font-size: 1em;
+      color: #333;
+      line-height: 1.5;
+      text-align: left;
+    ">  
+      <p style="margin-bottom: 12px;">
+        🔐 <strong>Your Privacy Matters</strong><br />
+        What you share here is <em>not monitored or stored</em> by AskDrPsychBot.<br />
+        Everything stays in your browser unless <em>you</em> choose to save it.
+      </p>
+      <button onclick="downloadAsText()" style="
+        padding: 10px 16px;
+        background-color: #2b6cb0;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+      ">💾 Save This Session</button>
+    </div>
 
+    <div id="chat-box">
+      <p><strong>DrPsychBot:</strong> Hello, how can I support you today?</p>
+    </div>
 
-  <div id="chat-box">
-    <p><strong>DrPsychBot:</strong> Hello, how can I support you today?</p>
+    <input id="user-input" type="text" placeholder="Type or speak...">
+    <button onclick="sendMessage(true)">Send</button>
+    <button onclick="startListening()">🎙 Speak</button>
+    <div id="status"></div>
   </div>
 
-  <input id="user-input" type="text" placeholder="Type or speak...">
-  <button onclick="sendMessage(true)">Send</button>
-  <button onclick="startListening()">🎙 Speak</button>
-  <div id="status"></div>
+  
+
 
   <script>
     let recognition;
@@ -133,7 +136,6 @@
     link.download = "AskDrPsychBot_Session.txt";
     link.click();
   }
-</script>
 
     function typeUserMessage(text, callback) {
       if (!text || text.trim() === "") return;
@@ -256,8 +258,7 @@
       recognition.start();
     }
   </script>
-</body>
-<body>
+
   <div id="chatbox-wrapper">
     <h2>👋 Welcome to AskDrPsychBot</h2>
     ...
