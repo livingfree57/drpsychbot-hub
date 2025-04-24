@@ -1,11 +1,16 @@
 let recognition;
+let conversation = [];
+
+function addMessage(sender, text) {
+  conversation.push({ sender, text });
+}
 
 function typeUserMessage(text, callback) {
   if (!text || text.trim() === "") return;
   const chatBox = document.getElementById("chat-box");
   const userMsg = document.createElement("p");
   const userSpan = document.createElement("span");
-  userMsg.innerHTML = `You (spoken): `;
+  userMsg.innerHTML = `<strong>You (spoken):</strong> `;
   userSpan.id = 'user-typing';
   userMsg.appendChild(userSpan);
   chatBox.appendChild(userMsg);
@@ -16,6 +21,7 @@ function typeUserMessage(text, callback) {
       i++;
     } else {
       clearInterval(interval);
+      addMessage("You (spoken)", text);
       if (callback) callback();
     }
     chatBox.scrollTop = chatBox.scrollHeight;
@@ -27,7 +33,7 @@ function typeReply(text, callback) {
   const chatBox = document.getElementById("chat-box");
   const replyParagraph = document.createElement("p");
   const replySpan = document.createElement("span");
-  replyParagraph.innerHTML = `DrPsychBot: `;
+  replyParagraph.innerHTML = `<strong>DrPsychBot:</strong> `;
   replySpan.id = 'typing';
   replyParagraph.appendChild(replySpan);
   chatBox.appendChild(replyParagraph);
@@ -38,6 +44,7 @@ function typeReply(text, callback) {
       i++;
     } else {
       clearInterval(interval);
+      addMessage("DrPsychBot", text);
       chatBox.scrollTop = chatBox.scrollHeight;
       if (callback) callback();
     }
@@ -46,6 +53,7 @@ function typeReply(text, callback) {
 
 function sendMessage(fromTyped = false) {
   const input = document.getElementById("user-input").value.trim();
+  const bot = document.getElementById("botSelect")?.value || "default";
   if (!input) return;
   document.getElementById("status").innerText = "Processing...";
   if (fromTyped) {
@@ -54,7 +62,7 @@ function sendMessage(fromTyped = false) {
   fetch("/voice", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: input })
+    body: JSON.stringify({ message: input, bot })
   })
     .then(res => res.json())
     .then(data => {
@@ -81,9 +89,19 @@ function sendMessage(fromTyped = false) {
 function typeUserTyped(text) {
   const chatBox = document.getElementById("chat-box");
   const userTyped = document.createElement("p");
-  userTyped.innerHTML = `You: ${text}`;
+  userTyped.innerHTML = `<strong>You:</strong> ${text}`;
   chatBox.appendChild(userTyped);
+  addMessage("You", text);
   chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function downloadAsText() {
+  const content = conversation.map(msg => `${msg.sender}: ${msg.text}`).join("\n");
+  const blob = new Blob([content], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "AskDrPsychBot_Session.txt";
+  link.click();
 }
 
 function startListening() {
