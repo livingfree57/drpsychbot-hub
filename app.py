@@ -54,6 +54,17 @@ def index():
 def about():
     return render_template("about.html")
 
+@app.route("/faq")
+def faq():
+    return render_template("faq.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@app.route("/drkim")
+def drkim():
+    return render_template("drkim.html")
 
 @app.route("/list-bots")
 def list_bots():
