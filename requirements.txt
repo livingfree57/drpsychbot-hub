@@ -2,3 +2,4 @@ flask
 openai==0.28.1
 gunicorn
 python-dotenv
+elevenlabs
