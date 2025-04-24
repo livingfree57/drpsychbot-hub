@@ -1,6 +1,16 @@
 <div style="text-align: center; padding: 30px; font-size: 2em; font-weight: 500;">
   👋 Welcome to AskDrPsychBot — your AI guide for emotional healing, parenting support, and self-discovery.
 </div>
+<p style="
+  font-size: 0.85em;
+  color: #666;
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 20px;
+">
+  🔒 Your conversation stays private — nothing is saved unless you choose to.<br>
+  ⏳ If this page takes a few seconds to load, it's just waking up from sleep mode.
+</p>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,21 +55,39 @@
   <label for="botSelect">Choose a bot/topic:</label>
   <select id="botSelect"></select>
   <div style="
-  max-width: 400x;
-  margin: 0 auto
-  background-color: #f0f4f8;
+  max-width: 600px;
+  margin: 0 auto 16px;
   padding: 20px;
-  border-bottom: 2px solid #e0e0e0;
-  font-size: 1.3em;
-  font-weight: 500;
+  background-color: #f0f4f8;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.05);
+  font-size: 1em;
   color: #333;
-  text-align: center;">
-  
-  <br><br>
-  You can ask anything like:  
-  <em>“Why do I feel numb for no reason?”</em> or  
-  <em>“How do I talk to my child when they shut down?”</em>
+  line-height: 1.5;
+  text-align: left;
+">  
+
+  <p style="margin-bottom: 12px;">
+    🔐 <strong>Your Privacy Matters</strong><br />
+    What you share here is <em>not monitored or stored</em> by AskDrPsychBot.<br />
+    Everything you say stays in your browser — unless <em>you</em> choose to save it when you're ready.
+  </p>
+  <button
+    onclick="downloadAsText()"
+    style="
+      padding: 10px 16px;
+      background-color: #2b6cb0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    "
+  >
+    💾 Save This Session
+  </button>
 </div>
+
 
   <div id="chat-box">
     <p><strong>DrPsychBot:</strong> Hello, how can I support you today?</p>
@@ -229,4 +257,12 @@
     }
   </script>
 </body>
+<body>
+  <div id="chatbox-wrapper">
+    <h2>👋 Welcome to AskDrPsychBot</h2>
+    ...
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+
 </html>
