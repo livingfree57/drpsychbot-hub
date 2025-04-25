@@ -68,6 +68,17 @@ def contact():
 def drkim():
     return render_template("drkim.html")
 
+@app.route("/list-bots")
+def list_bots():
+    return jsonify([
+        {
+            "bot": b["bot_name"],
+            "category": b["category"],
+            "description": b["description"]
+        } for b in BOT_CONFIGS
+    ])
+
+
 @app.route("/voice", methods=["POST"])
 def voice_reply():
     data = request.json
