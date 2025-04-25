@@ -169,26 +169,32 @@
     }
 
     function typeReply(text, callback) {
-      if (!text || text.trim() === "") return;
-      const chatBox = document.getElementById("chat-box");
-      const replyParagraph = document.createElement("p");
-      const replySpan = document.createElement("span");
-      replyParagraph.innerHTML = `<strong>DrpsychBot:</strong> `;
-      replySpan.id = 'typing';
-      replyParagraph.appendChild(replySpan);
-      chatBox.appendChild(replyParagraph);
-      let i = 0;
-      const interval = setInterval(() => {
-        if (i < text.length) {
-          replySpan.textContent += text.charAt(i);
-          i++;
-        } else {
-          clearInterval(interval);
-          chatBox.scrollTop = chatBox.scrollHeight;
-          if (callback) callback();
-        }
-      }, 30);
-    }
+  if (!text || text.trim() === "") return;
+  const chatBox = document.getElementById("chat-box");
+  const replyParagraph = document.createElement("p");
+  const replySpan = document.createElement("span");
+  replyParagraph.innerHTML = `<strong>DrPsychBot:</strong> `;
+  replySpan.id = 'typing';
+  replyParagraph.appendChild(replySpan);
+  chatBox.appendChild(replyParagraph);
+
+  let i = 0;
+
+  // Delay typing start to simulate thoughtfulness
+  setTimeout(() => {
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        replySpan.textContent += text.charAt(i);
+        i++;
+      } else {
+        clearInterval(interval);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        if (callback) callback();
+      }
+    }, 30); // normal typing speed
+  }, 1000); // 1-second thoughtful pause before typing begins
+}
+
 
     function sendMessage(fromTyped = false) {
       const input = document.getElementById("user-input").value.trim();

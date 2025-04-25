@@ -133,16 +133,25 @@ def voice_reply():
     if not final_reply:
         try:
             gpt_response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "You are a compassionate AI therapist."},
-                    {"role": "user", "content": user_input}
-                ]
-            )
+    model="gpt-3.5-turbo",
+    temperature=0.7,
+    max_tokens=60,  # keeps it short
+    messages=[
+        {"role": "system", "content": (
+            "You are a calm, empathic therapist. "
+            "Only reflect the speaker's emotional state. "
+            "Do not give advice. Only reflect the user's emotion in a compassionate tone. "
+                        "Keep responses under 3 short sentences."
+        )},
+        {"role": "user", "content": user_input}
+    ]
+)
+
             final_reply = gpt_response["choices"][0]["message"]["content"].strip()
         except Exception as e:
             print("GPT fallback error:", e)
-            final_reply = "I'm here to support you, but I couldn’t reach my knowledge source right now."
+            final_reply = "I'm here to listen. Could you tell me more about that feeling?"
+
 
     # ElevenLabs voice response
     try:
