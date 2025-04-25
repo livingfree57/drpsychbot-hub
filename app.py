@@ -186,7 +186,7 @@ def voice_reply():
                     {"role": "system", "content": (
                         "You are a calm, empathic listener. "
                         "Do not give advice. First mirror the user's emotional state, "
-                        "then validate their feeling warmly and concisely. Limit response to 2-3 short sentences."
+                        "Limit response to 2-3 short sentences."
                     )},
                     {"role": "user", "content": user_input}
                 ]
