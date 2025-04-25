@@ -87,7 +87,7 @@ def voice_reply():
 
     # --- Helper Functions ---
     def detect_question_intent(text):
-        informational_keywords = ["what is", "can you tell me", "tell me", "explain", "define", "help me understand", "how does", "how can", "why does"]
+        informational_keywords = ["what is", "can you tell me", "explain", "define", "help me understand", "how does", "how can", "why does"]
         return any(keyword in text for keyword in informational_keywords)
 
     def detect_short_affirmation(text):
@@ -185,8 +185,8 @@ def voice_reply():
                 messages=[
                     {"role": "system", "content": (
                         "You are a calm, empathic listener. "
-                        "Do not give advice unless the user's intentiion is clear for advice seeking. First mirror the user's emotional state, "
-                        "Limit response to 2-3 short sentences."
+                        "Do not give advice. First, mirror the user's emotional state, "
+                        "then give advice when the user's intention is clear to get advice. Limit response to 2-3 short sentences."
                     )},
                     {"role": "user", "content": user_input}
                 ]
@@ -213,6 +213,7 @@ def voice_reply():
     except Exception as e:
         print("ElevenLabs voice error:", e)
         return jsonify({"text": final_reply})
+
 
 
 
