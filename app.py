@@ -27,6 +27,8 @@ app = Flask(__name__)
 # ── KNOWLEDGE-BASE CONFIG ─────────────────────────────────────────
 KB_DIR = pathlib.Path(__file__).parent / "kb"
 ROUTING_CONFIG_FILE = KB_DIR / "drpsychbot_routing_config.json"
+with (KB_DIR / "empathic_counseling_json.json").open("r", encoding="utf-8") as f:
+    EMPATHY_KB = json.load(f)
 
 with open(ROUTING_CONFIG_FILE, "r", encoding="utf-8") as f:
     BOT_CONFIGS = json.load(f)
@@ -79,29 +81,57 @@ def list_bots():
 @app.route("/voice", methods=["POST"])
 def voice_reply():
     data = request.json
-    user_input = data.get("message", "")
+    user_input = data.get("message", "").strip().lower()
     selected_bot = data.get("bot", "")
-
-    # Load knowledge base (as you're already doing)
+    final_reply = ""
+    
+    # Load topic-specific KB
+    bot_kb = []
     kb_files = get_bot_kb(selected_bot)
-    final_reply = None
-
-    if kb_files:
+    if kb_files and kb_files["json"]:
         try:
             with open(kb_files["json"], "r", encoding="utf-8") as f:
                 bot_kb = json.load(f)
-            for item in bot_kb:
-                if user_input.lower() in item["question"].lower():
-                    final_reply = item["answer"]
-                    break
         except Exception as e:
-            print("KB load error:", e)
+            print("Error loading bot KB:", e)
 
-    # GPT fallback
+    # Try empathy match first
+    empathy_reply = ""
+    empathy_match = difflib.get_close_matches(
+        user_input,
+        [e["question"].lower() for e in EMPATHY_KB],
+        n=1,
+        cutoff=0.6
+    )
+    if empathy_match:
+        empathy_reply = next(
+            (e["answer"] for e in EMPATHY_KB if e["question"].lower() == empathy_match[0]), ""
+        )
+
+    # Then try topic-specific info match
+    info_reply = ""
+    info_match = difflib.get_close_matches(
+        user_input,
+        [e["question"].lower() for e in bot_kb],
+        n=1,
+        cutoff=0.6
+    )
+    if info_match:
+        info_reply = next(
+            (e["answer"] for e in bot_kb if e["question"].lower() == info_match[0]), ""
+        )
+
+    # Combine them
+    if empathy_reply and info_reply:
+        final_reply = f"{empathy_reply} {info_reply}"
+    elif empathy_reply:
+        final_reply = empathy_reply
+    elif info_reply:
+        final_reply = info_reply
+
+    # Fallback to GPT if nothing matched
     if not final_reply:
         try:
-            import openai
-            openai.api_key = os.getenv("OPENAI_API_KEY")
             gpt_response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
@@ -114,15 +144,8 @@ def voice_reply():
             print("GPT fallback error:", e)
             final_reply = "I'm here to support you, but I couldn’t reach my knowledge source right now."
 
-    # ElevenLabs voice (wrapped in try/except)
+    # ElevenLabs voice response
     try:
-        import uuid
-        from elevenlabs import save
-        from elevenlabs.client import ElevenLabs
-
-        voice_id = os.getenv("VOICE_ID", "your_default_voice_id")  # optional
-        client_11 = ElevenLabs(api_key=os.getenv("ELEVEN_API_KEY"))
-
         audio_filename = f"response_{uuid.uuid4().hex}.mp3"
         audio_path = pathlib.Path("static") / audio_filename
 
@@ -139,6 +162,7 @@ def voice_reply():
     except Exception as e:
         print("ElevenLabs voice error:", e)
         return jsonify({"text": final_reply})
+
 
 if __name__ == "__main__":
     import os
