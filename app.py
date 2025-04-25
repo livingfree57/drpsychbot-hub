@@ -68,23 +68,13 @@ def contact():
 def drkim():
     return render_template("drkim.html")
 
-@app.route("/list-bots")
-def list_bots():
-    return jsonify([
-        {
-            "bot": b["bot_name"],
-            "category": b["category"],
-            "description": b["description"]
-        } for b in BOT_CONFIGS
-    ])
-
 @app.route("/voice", methods=["POST"])
 def voice_reply():
     data = request.json
     user_input = data.get("message", "").strip().lower()
     selected_bot = data.get("bot", "")
     final_reply = ""
-    
+
     # Load topic-specific KB
     bot_kb = []
     kb_files = get_bot_kb(selected_bot)
@@ -95,65 +85,118 @@ def voice_reply():
         except Exception as e:
             print("Error loading bot KB:", e)
 
-    # Try empathy match first
-    empathy_reply = ""
-    empathy_match = difflib.get_close_matches(
-        user_input,
-        [e["question"].lower() for e in EMPATHY_KB],
-        n=1,
-        cutoff=0.6
-    )
-    if empathy_match:
-        empathy_reply = next(
-            (e["answer"] for e in EMPATHY_KB if e["question"].lower() == empathy_match[0]), ""
-        )
+    # --- Helper Functions ---
+    def detect_question_intent(text):
+        informational_keywords = ["what is", "can you tell me", "explain", "define", "help me understand", "how does", "how can", "why does"]
+        return any(keyword in text for keyword in informational_keywords)
 
-    # Then try topic-specific info match
+    def detect_short_affirmation(text):
+        affirmations = ["yes", "yeah", "yep", "right", "correct", "that's right", "exactly", "sure", "of course"]
+        return text.strip() in affirmations
+
+    # --- Short Affirmation Handling ---
+    if detect_short_affirmation(user_input):
+        final_reply = "I'm hearing that you agree. Thank you for sharing that."
+
+        try:
+            audio_filename = f"response_{uuid.uuid4().hex}.mp3"
+            audio_path = pathlib.Path("static") / audio_filename
+
+            audio = client_11.text_to_speech.convert(
+                text=final_reply,
+                voice_id=voice_id,
+                model_id="eleven_multilingual_v2",
+                output_format="mp3_44100_128"
+            )
+            save(audio, str(audio_path))
+
+            return jsonify({"text": final_reply, "audio_url": f"/static/{audio_filename}"})
+        except Exception as e:
+            print("ElevenLabs voice error:", e)
+            return jsonify({"text": final_reply})
+
+    # --- Intent Detection ---
+    is_informational = detect_question_intent(user_input)
+
+    # Search logic
     info_reply = ""
-    info_match = difflib.get_close_matches(
-        user_input,
-        [e["question"].lower() for e in bot_kb],
-        n=1,
-        cutoff=0.6
-    )
-    if info_match:
-        info_reply = next(
-            (e["answer"] for e in bot_kb if e["question"].lower() == info_match[0]), ""
-        )
+    empathy_reply = ""
 
-    # Combine them
-    if empathy_reply and info_reply:
-        final_reply = f"{empathy_reply} {info_reply}"
+    if is_informational:
+        # If question intent detected: search info KB first
+        info_match = difflib.get_close_matches(
+            user_input,
+            [e["question"].lower() for e in bot_kb],
+            n=1,
+            cutoff=0.6
+        )
+        if info_match:
+            info_reply = next(
+                (e["answer"] for e in bot_kb if e["question"].lower() == info_match[0]), ""
+            )
+        if not info_reply:
+            empathy_match = difflib.get_close_matches(
+                user_input,
+                [e["question"].lower() for e in EMPATHY_KB],
+                n=1,
+                cutoff=0.6
+            )
+            if empathy_match:
+                empathy_reply = next(
+                    (e["answer"] for e in EMPATHY_KB if e["question"].lower() == empathy_match[0]), ""
+                )
+
+    else:
+        # If emotional statement detected: search empathy KB first
+        empathy_match = difflib.get_close_matches(
+            user_input,
+            [e["question"].lower() for e in EMPATHY_KB],
+            n=1,
+            cutoff=0.6
+        )
+        if empathy_match:
+            empathy_reply = next(
+                (e["answer"] for e in EMPATHY_KB if e["question"].lower() == empathy_match[0]), ""
+            )
+        if not empathy_reply:
+            info_match = difflib.get_close_matches(
+                user_input,
+                [e["question"].lower() for e in bot_kb],
+                n=1,
+                cutoff=0.6
+            )
+            if info_match:
+                info_reply = next(
+                    (e["answer"] for e in bot_kb if e["question"].lower() == info_match[0]), ""
+                )
+
+    # Assemble final reply
+    if info_reply:
+        final_reply = info_reply
     elif empathy_reply:
         final_reply = empathy_reply
-    elif info_reply:
-        final_reply = info_reply
-
-    # Fallback to GPT if nothing matched
-    if not final_reply:
+    else:
+        # GPT fallback - short, empathic, reflective
         try:
             gpt_response = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    temperature=0.7,
-    max_tokens=60,  # keeps it short
-    messages=[
-        {"role": "system", "content": (
-            "You are a calm, empathic therapist. "
-            "Only reflect the speaker's emotional state. "
-            "Do not give advice. Only reflect the user's emotion in a compassionate tone. "
-                        "Keep responses under 3 short sentences."
-        )},
-        {"role": "user", "content": user_input}
-    ]
-)
-
+                model="gpt-3.5-turbo",
+                temperature=0.7,
+                max_tokens=60,
+                messages=[
+                    {"role": "system", "content": (
+                        "You are a calm, empathic listener. "
+                        "Do not give advice. First mirror the user's emotional state, "
+                        "then validate their feeling warmly and concisely. Limit response to 2-3 short sentences."
+                    )},
+                    {"role": "user", "content": user_input}
+                ]
+            )
             final_reply = gpt_response["choices"][0]["message"]["content"].strip()
         except Exception as e:
             print("GPT fallback error:", e)
-            final_reply = "I'm here to listen. Could you tell me more about that feeling?"
+            final_reply = "I'm here to listen, even if I don't have the right words yet."
 
-
-    # ElevenLabs voice response
+    # --- ElevenLabs voice generation ---
     try:
         audio_filename = f"response_{uuid.uuid4().hex}.mp3"
         audio_path = pathlib.Path("static") / audio_filename
@@ -167,10 +210,11 @@ def voice_reply():
         save(audio, str(audio_path))
 
         return jsonify({"text": final_reply, "audio_url": f"/static/{audio_filename}"})
-
     except Exception as e:
         print("ElevenLabs voice error:", e)
         return jsonify({"text": final_reply})
+
+
 
 
 if __name__ == "__main__":
