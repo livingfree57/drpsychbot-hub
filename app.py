@@ -98,7 +98,7 @@ def voice_reply():
         # --- Autocorrect small errors or clarify user input ---
     corrections = {
         "silent drama": "silent trauma",
-        "painting style ": "parenting style"      
+        "painting style": "parenting style",      
         "planting style": "parenting style",
         # add more if you notice frequent mishearing
     }
