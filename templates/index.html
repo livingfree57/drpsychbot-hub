@@ -37,6 +37,20 @@
       color: gray;
       margin-top: 5px;
     }
+  
+  #botSelect {
+    width: 100%;          /* Fill its container fully */
+    max-width: 600px;        /* Wider and visible */
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+  }
+</style>
+
   </style>
 </head>
 <body>
@@ -50,36 +64,80 @@
       <a href="/contact" style="color: white; margin: 0 12px; text-decoration: none;">📬 Contact</a>
     </div>
     
-    <!-- Your chatbot or page content follows -->
+
+    <div style="max-width: 620px; margin: 0 auto; padding: 20px; background: #f9f9f9; border-radius: 12px; font-family: sans-serif; font-size: 1em; color: #333; line-height: 1.6;">
+      <h2 style="text-align: center;">👋 Welcome</h2>
+      <p>
+        I'm AskDrPsychBot — a quiet space in your day where you can pause, reflect, and be heard without judgment.
+      </p>
+      <p>
+        You don’t need to have the perfect words. You don’t need to be strong. You don’t even need to know exactly what’s wrong.
+      </p>
+      <p>
+        This is a space where your feelings are valid, your story matters, and your voice will not be rushed.
+      </p>
+      <p>
+        Whether you're here for emotional clarity, parenting insight, or simply a moment of understanding — you are welcome, just as you are.
+      </p>
+      <p>
+        Ask your questions. Speak your truth. I will listen with patience and respond with care.
+      </p>
+      <p style="font-style: italic; color: #555;">
+        Created by Dr. Roland Kim, this bot is more than code — it is a labor of love, a seed of healing, and a quiet revolution in how we care for one another.
+      </p>
+      <p style="text-align: center; margin-top: 30px; font-weight: bold;">
+        You are not alone here. 💙
+      </p>
+    </div>
     
-  <div id="chatbox-wrapper" style="max-width: 600px; margin: auto;">
-    <h2 style="text-align: center;">👋 Welcome to AskDrPsychBot</h2>
-    <p style="font-size: 0.9em; color: #666; text-align: center; margin-top: -10px; margin-bottom: 30px">
-      <a href="/about" style="font-size: 0.9em; color: #2b6cb0;">🧭 Learn more about the bots and what they answer</a>
-      <a href="/faq">❓ FAQ</a> | 
-      <a href="/contact">📬 Contact</a> | 
-      <a href="/drkim">👤 Meet Dr. Kim</a>
-
-
+    <p class="privacy-note">
       🔒 Your conversation stays private — nothing is saved unless you choose to.<br>
       ⏳ If this page takes a few seconds to load, it's just waking up from sleep mode.
     </p>
 
-    <label for="botSelect">Choose a bot/topic:</label>
-    <select id="botSelect"></select>
 
-    <div style="
-      max-width: 600px;
-      margin: 16px 0;
-      padding: 20px;
-      background-color: #f0f4f8;
-      border-radius: 10px;
-      box-shadow: 0 0 6px rgba(0,0,0,0.05);
-      font-size: 1em;
-      color: #333;
-      line-height: 1.5;
-      text-align: left;
-    ">  
+    <div style="max-width: 620px; margin: 20px auto; padding: 18px; background: #eef6fb; border-radius: 12px; font-family: sans-serif; font-size: 1em; color: #333; line-height: 1.6; text-align: center; box-shadow: 0 0 8px rgba(0,0,0,0.05);">
+      <h3 style="color: #2b6cb0;">💙 The Heart of AskDrPsychBot</h3>
+      <p>
+        To offer love, we must first experience being loved.<br>
+        To show empathy, we must first be seen and heard with empathy.<br><br>
+        Healing is not something we give away from emptiness —<br>
+        it flows from what has been touched within us.
+      </p>
+    </div>
+    
+
+<div id="chatbox-wrapper" style="max-width: 600px; margin: auto;">
+  <div id="chat-box"> ... </div>
+  <input id="user-input" ... >
+  <button>Send</button>
+  ...
+</div>
+
+
+
+    <div style="max-width: 600px; margin: auto;">
+
+      <label for="botSelect">Choose a bot/topic:</label><br>
+      <select id="botSelect"></select>
+    
+      <div style="
+        margin-top: 16px;
+        padding: 20px;
+        background-color: #f0f4f8;
+        border-radius: 10px;
+        box-shadow: 0 0 6px rgba(0,0,0,0.05);
+        font-size: 1em;
+        color: #333;
+        line-height: 1.5;
+        text-align: left;
+      ">
+        <!-- Privacy Banner inside -->
+      </div>
+    
+    </div>
+    
+
       <p style="margin-bottom: 12px;">
         🔐 <strong>Your Privacy Matters</strong><br />
         What you share here is <em>not monitored or stored</em> by AskDrPsychBot.<br />
@@ -105,16 +163,24 @@
     <button onclick="sendMessage(true)">Send</button>
     <button onclick="startListening()">🎙 Speak</button>
     <div id="status"></div>
-  </div>
-
-  
 
 
   <script>
-    let recognition;
-
+    
     // Populate bot dropdown
     window.addEventListener("DOMContentLoaded", () => {
+      const dropdown = document.getElementById("botSelect");
+
+// Add a placeholder option immediately
+      const placeholder = document.createElement("option");
+
+      placeholder.value = "";
+      placeholder.textContent = "🔎 Select a Bot Topic...";
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      dropdown.appendChild(placeholder);
+
+
       fetch("/list-bots")
         .then(res => res.json())
         .then(bots => {
