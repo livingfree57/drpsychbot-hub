@@ -139,10 +139,12 @@ def voice_reply():
                     max_tokens=60,
                     messages=[
                         {"role": "system", "content": (
-                            "You are a calm, empathic listener. "
-                            "First mirror the user's emotional state warmly. "
-                            "If the user clearly asks for advice, gently offer one encouraging suggestion without overwhelming them. "
-                            "Keep responses concise, within 2–3 short sentences."
+                            "You are a calm, empathic listener trained in reflective psychotherapy. "
+                "First, mirror the user's emotional state warmly, without validating by saying it is normal or okay to feel that way. "
+                "If the user clearly asks for advice (using words like 'what should I do?' or 'can you help me fix this?'), "
+                "then gently offer one encouraging, non-overwhelming suggestion. "
+                "Otherwise, stay with their emotions, helping them feel heard and safe. "
+                "Keep responses concise and caring, within 2–3 short sentences."
                         )},
                         {"role": "user", "content": user_input}
                              ]
@@ -150,7 +152,7 @@ def voice_reply():
                 final_reply = gpt_response["choices"][0]["message"]["content"].strip()
             except Exception as e:
                 print("GPT fallback error:", e)
-                final_reply = "I'm here to listen, even if I don't have the right words yet."
+                final_reply = "I'm here to listen, even if I don't have the perfect words yet."
 
     # ElevenLabs voice generation
     try:
