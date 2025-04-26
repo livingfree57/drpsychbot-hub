@@ -1,3 +1,4 @@
+<!-- Welcome Message -->
 <div style="text-align: center; padding: 30px; font-size: 2em; font-weight: 500;">
   👋 Welcome to AskDrPsychBot — your AI guide for emotional healing, parenting support, and self-discovery.
 </div>
@@ -37,131 +38,97 @@
       color: gray;
       margin-top: 5px;
     }
-  
-  #botSelect {
-    width: 100%;          /* Fill its container fully */
-    max-width: 600px;        /* Wider and visible */
-    padding: 10px;
-    font-size: 16px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background-color: #ffffff;
-  }
-</style>
-
+    #botSelect {
+      width: 100%;
+      max-width: 600px;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: #ffffff;
+    }
   </style>
 </head>
+
 <body>
-  <body>
 
-    <div style="position: sticky; top: 0; background-color: #2b6cb0; padding: 12px 20px; text-align: center; z-index: 1000; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-      <a href="/" style="color: white; margin: 0 12px; text-decoration: none; font-weight: bold;">🏠 Chat</a>
-      <a href="/faq" style="color: white; margin: 0 12px; text-decoration: none;">❓ FAQ</a>
-      <a href="/about" style="color: white; margin: 0 12px; text-decoration: none;">📘 About</a>
-      <a href="/drkim" style="color: white; margin: 0 12px; text-decoration: none;">👤 Dr. Kim</a>
-      <a href="/contact" style="color: white; margin: 0 12px; text-decoration: none;">📬 Contact</a>
-    </div>
-    
+  <!-- Sticky Menu -->
+  <div style="position: sticky; top: 0; background-color: #2b6cb0; padding: 12px 20px; text-align: center; z-index: 1000; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+    <a href="/" style="color: white; margin: 0 12px; text-decoration: none; font-weight: bold;">🏠 Chat</a>
+    <a href="/faq" style="color: white; margin: 0 12px; text-decoration: none;">❓ FAQ</a>
+    <a href="/about" style="color: white; margin: 0 12px; text-decoration: none;">📘 About</a>
+    <a href="/drkim" style="color: white; margin: 0 12px; text-decoration: none;">👤 Dr. Kim</a>
+    <a href="/contact" style="color: white; margin: 0 12px; text-decoration: none;">📬 Contact</a>
+  </div>
 
-    <div style="max-width: 620px; margin: 0 auto; padding: 20px; background: #f9f9f9; border-radius: 12px; font-family: sans-serif; font-size: 1em; color: #333; line-height: 1.6;">
-      <h2 style="text-align: center;">👋 Welcome</h2>
-      <p>
-        I'm AskDrPsychBot — a quiet space in your day where you can pause, reflect, and be heard without judgment.
-      </p>
-      <p>
-        You don’t need to have the perfect words. You don’t need to be strong. You don’t even need to know exactly what’s wrong.
-      </p>
-      <p>
-        This is a space where your feelings are valid, your story matters, and your voice will not be rushed.
-      </p>
-      <p>
-        Whether you're here for emotional clarity, parenting insight, or simply a moment of understanding — you are welcome, just as you are.
-      </p>
-      <p>
-        Ask your questions. Speak your truth. I will listen with patience and respond with care.
-      </p>
-      <p style="font-style: italic; color: #555;">
-        Created by Dr. Roland Kim, this bot is more than code — it is a labor of love, a seed of healing, and a quiet revolution in how we care for one another.
-      </p>
-      <p style="text-align: center; margin-top: 30px; font-weight: bold;">
-        You are not alone here. 💙
-      </p>
-    </div>
-    
-    <p class="privacy-note">
-      🔒 Your conversation stays private — nothing is saved unless you choose to.<br>
-      ⏳ If this page takes a few seconds to load, it's just waking up from sleep mode.
-    </p>
+  <!-- Welcome Text -->
+  <div style="max-width: 620px; margin: 0 auto; padding: 20px; background: #f9f9f9; border-radius: 12px; font-size: 1em; color: #333; line-height: 1.6;">
+    <h2 style="text-align: center;">👋 Welcome</h2>
+    <p>I'm AskDrPsychBot — a quiet space in your day where you can pause, reflect, and be heard without judgment.</p>
+    <p>This is a space where your feelings are valid, your story matters, and your voice will not be rushed.</p>
+    <p>Created by Dr. Roland Kim, this bot is a labor of love, a seed of healing, and a quiet revolution in how we care for one another.</p>
+    <p style="text-align: center; font-weight: bold;">You are not alone here. 💙</p>
+  </div>
 
+  <!-- Privacy Notice -->
+  <p style="text-align: center; font-size: 0.85em; color: #666;">
+    🔒 Your conversation stays private — nothing is saved unless you choose to.<br>
+    ⏳ If this page takes a few seconds to load, it's just waking up from sleep mode.
+  </p>
 
-    <div style="max-width: 600px; margin: auto;">
+  <!-- Bot Selection -->
+  <div style="max-width: 600px; margin: auto;">
+    <label for="botSelect">Choose a bot/topic:</label><br>
+    <select id="botSelect"></select>
+  </div>
 
-      <label for="botSelect">Choose a bot/topic:</label><br>
-      <select id="botSelect"></select>
-    
-     💙 The Heart of AskDrPsychBot</h3>
-      <p>
-        To offer love, we must first experience being loved.<br>
-        To show empathy, we must first be seen and heard with empathy.<br><br>
-        Healing is not something we give away from emptiness —<br>
-        it flows from what has been touched within us.
-      </p>
-    </div>
-   
-        
-        <div id="chat-box">
+  <!-- Chatbox Wrapper -->
+  <div id="chatbox-wrapper" style="max-width: 600px; margin: 30px auto;">
+    <div id="chat-box">
       <p><strong>DrPsychBot:</strong> Hello, how can I support you today?</p>
     </div>
-    
-    <input id="user-input" type="text" placeholder="Type or speak...">
+
+    <input id="user-input" type="text" placeholder="Type or speak..." />
     <button onclick="sendMessage(true)">Send</button>
     <button onclick="startListening()">🎙 Speak</button>
     <div id="status"></div>
 
-    
-   
-      <p style="margin-bottom: 12px;">
-        🔐 <strong>Your Privacy Matters</strong><br />
-        What you share here is <em>not monitored or stored</em> by AskDrPsychBot.<br />
-        Everything stays in your browser unless <em>you</em> choose to save it.
-        Refresh the page to clear the screen when you are done.
-      </p>
-      <button onclick="downloadAsText()" style="
-        padding: 10px 16px;
-        background-color: #2b6cb0;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-weight: bold;
-        cursor: pointer;
-      ">💾 Save This Session</button>
-    </div>
+    <!-- Save Button -->
+    <p style="margin-top: 20px;">
+      🔐 <strong>Your Privacy Matters</strong><br>
+      Everything stays in your browser unless you choose to save it.<br>
+      Refresh the page to clear the screen when done.
+    </p>
+    <button onclick="downloadAsText()" style="
+      padding: 10px 16px;
+      background-color: #2b6cb0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    ">💾 Save This Session</button>
+  </div>
 
-   
-
-
+  <!-- Scripts -->
   <script>
-    
+    let recognition; // <== VERY IMPORTANT: Added at the top
+
     // Populate bot dropdown
     window.addEventListener("DOMContentLoaded", () => {
       const dropdown = document.getElementById("botSelect");
-
-// Add a placeholder option immediately
       const placeholder = document.createElement("option");
-
       placeholder.value = "";
       placeholder.textContent = "🔎 Select a Bot Topic...";
       placeholder.disabled = true;
       placeholder.selected = true;
       dropdown.appendChild(placeholder);
 
-
       fetch("/list-bots")
         .then(res => res.json())
         .then(bots => {
-          const dropdown = document.getElementById("botSelect");
           bots.forEach(bot => {
             const option = document.createElement("option");
             option.value = bot.bot;
@@ -170,24 +137,21 @@
           });
         });
     });
-</script>
 
-<!-- ✅ Add this *after* the previous script -->
-<script>
-  let conversation = [];
+    let conversation = [];
 
-  function addMessage(sender, text) {
-    conversation.push({ sender, text });
-  }
+    function addMessage(sender, text) {
+      conversation.push({ sender, text });
+    }
 
-  function downloadAsText() {
-    const content = conversation.map(msg => `${msg.sender}: ${msg.text}`).join("\n");
-    const blob = new Blob([content], { type: "text/plain" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "AskDrPsychBot_Session.txt";
-    link.click();
-  }
+    function downloadAsText() {
+      const content = conversation.map(msg => `${msg.sender}: ${msg.text}`).join("\n");
+      const blob = new Blob([content], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "AskDrPsychBot_Session.txt";
+      link.click();
+    }
 
     function typeUserMessage(text, callback) {
       if (!text || text.trim() === "") return;
@@ -212,43 +176,37 @@
     }
 
     function typeReply(text, callback) {
-  if (!text || text.trim() === "") return;
-  const chatBox = document.getElementById("chat-box");
-  const replyParagraph = document.createElement("p");
-  const replySpan = document.createElement("span");
-  replyParagraph.innerHTML = `<strong>DrPsychBot:</strong> `;
-  replySpan.id = 'typing';
-  replyParagraph.appendChild(replySpan);
-  chatBox.appendChild(replyParagraph);
-
-  let i = 0;
-
-  // Delay typing start to simulate thoughtfulness
-  setTimeout(() => {
-    const interval = setInterval(() => {
-      if (i < text.length) {
-        replySpan.textContent += text.charAt(i);
-        i++;
-      } else {
-        clearInterval(interval);
-        chatBox.scrollTop = chatBox.scrollHeight;
-        if (callback) callback();
-      }
-    }, 30); // normal typing speed
-  }, 1000); // 1-second thoughtful pause before typing begins
-}
-
+      if (!text || text.trim() === "") return;
+      const chatBox = document.getElementById("chat-box");
+      const replyParagraph = document.createElement("p");
+      const replySpan = document.createElement("span");
+      replyParagraph.innerHTML = `<strong>DrPsychBot:</strong> `;
+      replySpan.id = 'typing';
+      replyParagraph.appendChild(replySpan);
+      chatBox.appendChild(replyParagraph);
+      let i = 0;
+      setTimeout(() => {
+        const interval = setInterval(() => {
+          if (i < text.length) {
+            replySpan.textContent += text.charAt(i);
+            i++;
+          } else {
+            clearInterval(interval);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            if (callback) callback();
+          }
+        }, 30);
+      }, 1000); // thoughtful pause
+    }
 
     function sendMessage(fromTyped = false) {
       const input = document.getElementById("user-input").value.trim();
       const bot = document.getElementById("botSelect").value;
       if (!input) return;
       document.getElementById("status").innerText = "Processing...";
-
       if (fromTyped) {
         typeUserTyped(input);
       }
-
       fetch("/voice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -271,7 +229,6 @@
           console.error("Error:", err);
           typeReply("Sorry, something went wrong.", () => startListening());
         });
-
       document.getElementById("user-input").value = "";
     }
 
@@ -291,9 +248,7 @@
       recognition.lang = 'en-US';
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
-
       document.getElementById("status").innerText = "🎤 Listening...";
-
       recognition.onresult = function(event) {
         const spokenText = event.results[0][0].transcript;
         if (spokenText.trim()) {
@@ -303,21 +258,18 @@
           });
         }
       };
-
       recognition.onerror = function(event) {
         console.error("Speech recognition error:", event.error);
         document.getElementById("status").innerText = "🎤 Error. Tap mic to retry.";
       };
-
       recognition.onend = function() {
         document.getElementById("status").innerText = "";
       };
-
       recognition.start();
     }
   </script>
-<!-- End of your in-page JS code -->
 
 </body>
 </html>
+
 
