@@ -83,6 +83,11 @@ def voice_reply():
     selected_bot = data.get("bot", "")
     final_reply = ""
 
+    # --- Emotional Memory ---
+    global last_emotion
+    if 'last_emotion' not in globals():
+        last_emotion = ""
+
     # Load topic-specific KB
     bot_kb = []
     kb_files = get_bot_kb(selected_bot)
@@ -102,90 +107,118 @@ def voice_reply():
         affirmations = ["yes", "yeah", "yep", "right", "correct", "that's right", "exactly", "sure", "of course"]
         return text.strip() in affirmations
 
+    def detect_emotional_words(text):
+        emotions = ["lonely", "empty", "angry", "sad", "upset", "anxious", "overwhelmed", "confused", "guilty", "ashamed", "afraid", "lost"]
+        for emotion in emotions:
+            if emotion in text:
+                return emotion
+        return ""
+
+    def detect_vague_feeling(text):
+        vague_phrases = ["i feel", "yes", "yeah", "i'm feeling", "i am feeling"]
+        return any(phrase in text for phrase in vague_phrases)
+
+    
     # --- Short Affirmation Handling ---
     if detect_short_affirmation(user_input):
-        final_reply = "I'm hearing that you agree. Thank you for sharing that."
+        if last_emotion:
+            final_reply = f"It sounds like you're feeling really {last_emotion}. I'm right here, listening with you."
 
-        try:
-            audio_filename = f"response_{uuid.uuid4().hex}.mp3"
-            audio_path = pathlib.Path("static") / audio_filename
-
-            audio = client_11.text_to_speech.convert(
-                text=final_reply,
-                voice_id=voice_id,
-                model_id="eleven_multilingual_v2",
-                output_format="mp3_44100_128"
-            )
-            save(audio, str(audio_path))
-
-            return jsonify({"text": final_reply, "audio_url": f"/static/{audio_filename}"})
-        except Exception as e:
-            print("ElevenLabs voice error:", e)
-            return jsonify({"text": final_reply})
-
-    # --- Intent Detection ---
-    is_informational = detect_question_intent(user_input)
-
-    # Search logic
-    info_reply = ""
-    empathy_reply = ""
-
-    if is_informational:
-        # Question intent: prefer bot KB first
-        info_match = difflib.get_close_matches(
-            user_input,
-            [e["question"].lower() for e in bot_kb],
-            n=1,
-            cutoff=0.6
-        )
-        if info_match:
-            info_reply = next(
-                (e["answer"] for e in bot_kb if e["question"].lower() == info_match[0]), ""
-            )
     else:
-        # Emotional intent: prefer empathy KB first
-        empathy_match = difflib.get_close_matches(
-            user_input,
-            [e["question"].lower() for e in EMPATHY_KB],
-            n=1,
-            cutoff=0.6
-        )
-        if empathy_match:
-            empathy_reply = next(
-                (e["answer"] for e in EMPATHY_KB if e["question"].lower() == empathy_match[0]), ""
-            )
+        # --- Intent Detection ---
+        is_informational = detect_question_intent(user_input)
 
-    # --- Final Assembly ---
-    if info_reply:
-        final_reply = info_reply
-    elif empathy_reply:
-        final_reply = empathy_reply
-    else:
-        try:
-            if is_informational:
-                # If no KB match but asked informationally — gently ask user
-                final_reply = "I'm not sure I have detailed information about that. Would you like me to offer a brief insight?"
-            else:
-                gpt_response = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
-                    temperature=0.6,
-                    max_tokens=80,
-                    messages=[
-                        {"role": "system", "content": (
-                            "You are a calm, empathic listener trained in reflective psychotherapy. "
-                            "First mirror the user's emotional state warmly, without validating by saying it is normal or okay to feel that way. "
-                            "If the user clearly asks for advice (e.g., 'what should I do?'), gently offer one small suggestion. "
-                            "If the user requests information (e.g., 'tell me', 'can you explain'), offer a brief factual insight. "
-                            "Otherwise, stay present with their emotions. "
-                            "Keep responses caring, simple, and within 2–3 short sentences."
-                        )},
-                        {"role": "user", "content": user_input}
-                    ]
+        # Search logic
+        info_reply = ""
+        empathy_reply = ""
+
+        if is_informational:
+            # If question intent detected: search info KB first
+            info_match = difflib.get_close_matches(
+                user_input,
+                [e["question"].lower() for e in bot_kb],
+                n=1,
+                cutoff=0.6
+            )
+            if info_match:
+                info_reply = next(
+                    (e["answer"] for e in bot_kb if e["question"].lower() == info_match[0]),
+                    ""
                 )
-                final_reply = gpt_response["choices"][0]["message"]["content"].strip()
-        except Exception as e:
-            print("GPT fallback error:", e)
-            final_reply = "I'm here to listen, even if I don't have the perfect words yet."
+            if not info_reply:
+                empathy_match = difflib.get_close_matches(
+                    user_input,
+                    [e["question"].lower() for e in EMPATHY_KB],
+                    n=1,
+                    cutoff=0.6
+                )
+                if empathy_match:
+                    empathy_reply = next(
+                        (e["answer"] for e in EMPATHY_KB if e["question"].lower() == empathy_match[0]),
+                        ""
+                    )
+        else:
+            # If emotional statement detected: search empathy KB first
+            empathy_match = difflib.get_close_matches(
+                user_input,
+                [e["question"].lower() for e in EMPATHY_KB],
+                n=1,
+                cutoff=0.6
+            )
+            if empathy_match:
+                empathy_reply = next(
+                    (e["answer"] for e in EMPATHY_KB if e["question"].lower() == empathy_match[0]),
+                    ""
+                )
+            if not empathy_reply:
+                info_match = difflib.get_close_matches(
+                    user_input,
+                    [e["question"].lower() for e in bot_kb],
+                    n=1,
+                    cutoff=0.6
+                )
+                if info_match:
+                    info_reply = next(
+                        (e["answer"] for e in bot_kb if e["question"].lower() == info_match[0]),
+                        ""
+                    )
+
+        # Assemble final reply
+        if info_reply:
+            final_reply = info_reply
+        elif empathy_reply:
+            final_reply = empathy_reply
+        else:
+            # New logic: if vague feeling and emotional memory exists
+            if detect_vague_feeling(user_input) and last_emotion:
+                final_reply = f"It sounds like that {last_emotion} is still with you."
+            else:
+                # GPT fallback - short, empathic, reflective
+                try:
+                    gpt_response = openai.ChatCompletion.create(
+                        model="gpt-3.5-turbo",
+                        temperature=0.7,
+                        max_tokens=80,
+                        messages=[
+                            {"role": "system", "content": (
+                                "You are a calm, empathic listener trained in reflective psychotherapy. "
+                                "First, mirror the user's emotional state warmly, without validating by saying it is normal or okay to feel that way. "
+                                "If the user clearly asks for advice (like 'what should I do?'), offer one encouraging suggestion. "
+                                "If the user requests specific information (like 'tell me'), draw from available bot knowledge if possible. "
+                                "Otherwise, stay focused on reflection and mirroring."
+                            )},
+                            {"role": "user", "content": user_input}
+                        ]
+                    )
+                    final_reply = gpt_response["choices"][0]["message"]["content"].strip()
+                except Exception as e:
+                    print("GPT fallback error:", e)
+                    final_reply = "I'm here to listen, even if I don't have the perfect words yet."
+
+    # --- Save detected emotions for memory ---
+    detected_emotion = detect_emotional_words(user_input)
+    if detected_emotion:
+        last_emotion = detected_emotion
 
     # --- ElevenLabs voice generation ---
     try:
@@ -204,6 +237,8 @@ def voice_reply():
     except Exception as e:
         print("ElevenLabs voice error:", e)
         return jsonify({"text": final_reply})
+
+
 
 
 
