@@ -94,6 +94,27 @@ def voice_reply():
     data = request.json
     user_input = data.get("message", "").strip().lower()
     selected_bot = data.get("bot", "")
+    
+        # --- Autocorrect small errors or clarify user input ---
+    corrections = {
+        "silent drama": "silent trauma",
+        "painting style ": "parenting style"      
+        "planting style": "parenting style",
+        # add more if you notice frequent mishearing
+    }
+
+    for typo, correction in corrections.items():
+        if typo in user_input:
+            print(f"Auto-corrected '{typo}' to '{correction}'")
+            user_input = user_input.replace(typo, correction)
+
+    if user_input.startswith(("i meant", "i mean", "i meant to say")):
+        correction = user_input.split("i meant", 1)[-1].strip()
+        if correction:
+            print(f"Self-correction detected: {correction}")
+            user_input = correction
+
+    
     final_reply = ""
 
     # Load topic-specific KB
