@@ -51,4 +51,8 @@ function isIphone() {
       recognition.start();
     });
   }
+  function sendAfterSpeech() {
+    sendMessage(true); // Send the message to the bot
+    document.getElementById("send-after-speech").style.display = "none"; // Hide the button again
+  }
   
