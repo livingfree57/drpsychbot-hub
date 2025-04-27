@@ -155,7 +155,7 @@ def voice_reply():
             else:
                 final_reply = "I'm here with you. Could you share a little more?"
         elif last_emotion:
-            final_reply = f"It sounds like you're feeling really {last_emotion}. I'm right here with you."
+            final_reply = f"You're feeling really {last_emotion}. I'm right here with you."
         else:
             final_reply = "I'm here, listening with you."
     else:
@@ -190,7 +190,8 @@ def voice_reply():
                     messages=[
                         {"role": "system", "content": (
                             "You are a calm, empathic listener trained in reflective psychotherapy. "
-                            "First, mirror the user's emotional state warmly, without validating by saying it is normal or okay to feel that way. "
+                            "First, mirror the user's emotional state warmly."
+                            "Do not validate by saying 'it is normal' or it's okay to feel that way. "
                             "If the user clearly asks for advice (using words like 'what should I do?', 'can you help me fix this?'), "
                             "then gently offer one encouraging, non-overwhelming suggestion. "
                             "If the user requests specific information (using words like 'tell me', 'can you tell me', 'give me the information'), "

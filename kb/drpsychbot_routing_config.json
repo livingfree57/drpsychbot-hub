@@ -13,4 +13,12 @@
     "kb_csv": "silent_trauma_csv.csv",
     "kb_json": "silent_trauma_json.json"
   }
+  {
+    "category": "Fatherhood Support",
+    "bot_name": "Dr. Fatherhood Bot",
+    "description": "Guides fathers on emotional connection, discipline with empathy, and building resilient parent-child relationships.",
+    "kb_csv": "fatherhood_csv.csv",
+    "kb_json": "fatherhood_json.json"
+  }
+  
 ]
