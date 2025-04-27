@@ -5,52 +5,87 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>AskDrPsychBot - Emotional Healing AI</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      background: #f4f4f4;
-    }
-    #chat-box {
-      background: white;
-      border-radius: 10px;
-      padding: 15px;
-      height: 300px;
-      overflow-y: auto;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-    }
-    #user-input, #botSelect {
-      padding: 10px;
-      font-size: 16px;
-    }
-    button {
-      padding: 10px;
-      font-size: 16px;
-      margin-left: 5px;
-      cursor: pointer;
-    }
-    #status {
-      font-style: italic;
-      color: gray;
-      margin-top: 5px;
-    }
-    #botSelect {
-      width: 100%;
-      max-width: 600px;
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 10px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      background-color: #ffffff;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AskDrPsychBot - Emotional Healing AI</title>
+  
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+        background: #f4f4f4;
+        margin: 0;
+      }
+  
+      #chatbox-wrapper {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      }
+  
+      #chat-box {
+        background: #f9f9f9;
+        border-radius: 8px;
+        padding: 15px;
+        height: 300px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+      }
+  
+      #user-input, #botSelect {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+  
+      button {
+        padding: 10px 16px;
+        font-size: 16px;
+        margin: 5px 0;
+        width: 48%;
+        border: none;
+        border-radius: 8px;
+        background-color: #2b6cb0;
+        color: white;
+        cursor: pointer;
+      }
+  
+      button:hover {
+        background-color: #225a9e;
+      }
+  
+      #status {
+        font-style: italic;
+        color: gray;
+        margin-top: 5px;
+      }
+  
+      /* Responsive for smaller screens */
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        #chatbox-wrapper {
+          margin: 10px;
+          padding: 15px;
+        }
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  
 
 <body>
 
@@ -65,7 +100,7 @@
 
   <!-- Welcome Text -->
   <div style="max-width: 620px; margin: 0 auto; padding: 20px; background: #f9f9f9; border-radius: 12px; font-size: 1em; color: #333; line-height: 1.6;">
-    <h2 style="text-align: center;">👋 Welcome</h2>
+    <h2 style="text-align: center;">👋  The Future of Healing, One Conversation at a Time</h2>
     <p>I'm AskDrPsychBot — a quiet space in your day where you can pause, reflect, and be heard without judgment.</p>
     <p>This is a space where your feelings are valid, your story matters, and your voice will not be rushed.</p>
     <p>Created by Dr. Roland Kim, this bot is a labor of love, a seed of healing, and a quiet revolution in how we care for one another.</p>
