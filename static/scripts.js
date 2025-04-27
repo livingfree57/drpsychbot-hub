@@ -21,7 +21,7 @@ function isIphone() {
   });
   
   // Part 2: Speech Recognition Handling
-  let recognition;
+ 
   if ('webkitSpeechRecognition' in window) {
     recognition = new webkitSpeechRecognition();
     recognition.continuous = false;
