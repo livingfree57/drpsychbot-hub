@@ -8,7 +8,7 @@
   },
   {
     "category": "Trauma Support",
-    "bot_name": "Dr. Silent Trauma Bot",
+    "bot_name": "Dr. Silent Trauma Education Bot",
     "description": "Helps users identify and heal from silent, unspoken trauma.",
     "kb_csv": "silent_trauma_csv.csv",
     "kb_json": "silent_trauma_json.json"
@@ -21,8 +21,8 @@
     "kb_json": "fatherhood_json.json"
   },
   {
-    "category": "Suicide Prevention and Hope Support",
-    "bot_name": "HopeGuide Bot",
+    "category": "Finding Light in Difficult Times",
+    "bot_name": "Dr. HopeGuide Bot",
     "description": "Offers guidance, hope, and coping strategies for users facing despair, depression, or suicidal thoughts.",
     "kb_csv": "hopeguide_csv.csv",
     "kb_json": "hopeguide_json.json"
