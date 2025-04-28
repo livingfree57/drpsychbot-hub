@@ -21,10 +21,10 @@
     "kb_json": "fatherhood_json.json"
   },
   {
-    "category": "Suicide Prevention",
-    "bot_name": "Dr. HopeGuide Bot",
-    "description": "Provides emotional support and guidance for individuals struggling with suicidal thoughts and self-harm.",
-    "kb_csv": "hopeguide_csv_utf8.csv",
+    "category": "Suicide Prevention and Hope Support",
+    "bot_name": "HopeGuide Bot",
+    "description": "Offers guidance, hope, and coping strategies for users facing despair, depression, or suicidal thoughts.",
+    "kb_csv": "hopeguide_csv.csv",
     "kb_json": "hopeguide_json.json"
   }
 ]
