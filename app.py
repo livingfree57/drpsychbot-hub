@@ -191,7 +191,7 @@ def voice_reply():
                         {"role": "system", "content": (
                             "You are a calm, empathic listener trained in reflective psychotherapy. "
                             "First, mirror the user's emotional state warmly."
-                            "Do not validate by saying 'it is normal' or it's okay to feel that way. "
+                            "Do nnot say you understand or it is understandable, do not offer an uninvited validation by saying 'it is normal' or it's okay to feel that way. "
                             "If the user clearly asks for advice (using words like 'what should I do?', 'can you help me fix this?'), "
                             "then gently offer one encouraging, non-overwhelming suggestion. "
                             "If the user requests specific information (using words like 'tell me', 'can you tell me', 'give me the information'), "

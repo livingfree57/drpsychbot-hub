@@ -19,6 +19,12 @@
     "description": "Guides fathers on emotional connection, discipline with empathy, and building resilient parent-child relationships.",
     "kb_csv": "fatherhood_csv.csv",
     "kb_json": "fatherhood_json.json"
+  },
+  {
+    "category": "Suicide Prevention",
+    "bot_name": "Dr. HopeGuide Bot",
+    "description": "Provides emotional support and guidance for individuals struggling with suicidal thoughts and self-harm.",
+    "kb_csv": "hopeguide_csv_utf8.csv",
+    "kb_json": "hopeguide_json.json"
   }
-  
 ]
