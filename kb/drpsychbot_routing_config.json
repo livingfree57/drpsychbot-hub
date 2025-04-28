@@ -12,7 +12,7 @@
     "description": "Helps users identify and heal from silent, unspoken trauma.",
     "kb_csv": "silent_trauma_csv.csv",
     "kb_json": "silent_trauma_json.json"
-  }
+  },
   {
     "category": "Fatherhood Support",
     "bot_name": "Dr. Fatherhood Bot",
