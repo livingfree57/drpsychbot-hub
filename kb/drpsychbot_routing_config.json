@@ -26,5 +26,12 @@
     "description": "Offers guidance, hope, and coping strategies for users facing despair, depression, or suicidal thoughts.",
     "kb_csv": "hopeguide_csv.csv",
     "kb_json": "hopeguide_json.json"
-  }
+  },
+  {
+    "category": "Extended Family Coparenting",
+    "bot_name": "Dr. Extended Family Coparenting Bot",
+    "description": "Supports parents and caregivers in navigating complex family dynamics involving extended family members and coparenting challenges.",
+    "kb_csv": "extended_family_coparenting_utf8.csv",
+    "kb_json": "extended_family_coparenting.json"
+}
 ]
